@@ -17,6 +17,10 @@ class LoginResult:
     message: str
 
 
+def _est_vide(valeur):
+    return not isinstance(valeur, str) or not valeur.strip()
+
+
 def hacher_mot_de_passe(password):
     """Retourne le hash bcrypt du mot de passe (ENF-01 : jamais stocké en clair)."""
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
@@ -28,8 +32,9 @@ class LoginService:
         self._annuaire = annuaire
 
     def login(self, email, password):
-        if not email or not password:                   # CA2
+        if _est_vide(email) or _est_vide(password):     # CA2
             return LoginResult(False, MSG_CHAMPS_VIDES)
+        email = email.strip()
         if not EMAIL_REGEX.match(email):                # CA2
             return LoginResult(False, MSG_EMAIL_INVALIDE)
         hache = self._annuaire.get(email)
