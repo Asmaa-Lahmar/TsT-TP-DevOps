@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Environnement virtuel
+.venv/
+venv/
+
+# Configuration locale (secrets)
+.env
+
+# Éditeurs
+.vscode/
+.idea/
